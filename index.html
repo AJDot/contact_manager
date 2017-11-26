@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="stylesheets/master.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="javascripts/manager.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Contact Manager</h1>
+      <h2>Using localStorage, Handlebars, jQuery</h2>
+    </header>
+    <main>
+      <div class="actions">
+        <a class="button" href="#">Add Contact</a>
+        <input type="text" name="search" id="search" value="" placeholder="Search" />
+      </div>
+      <div id="tag_list"></div>
+
+      <form action="#" method="post"></form>
+
+      <div id="empty_result">
+        <h3>There are no contacts containing <span></span>.</h3>
+      </div>
+
+      <ul id="contacts"></ul>
+    </main>
+    <footer>
+      Developed by Alex.
+    </footer>
+
+    <script id="contacts_template" type="text/x-handlebars">
+      {{#each contacts}}
+      {{> contact_template}}
+      {{/each}}
+    </script>
+
+    <script id="contact_template" data-type="partial" type="text/x-handlebars">
+      <li data-id="{{id}}">
+        <h3>{{name}}</h3>
+        <dl>
+          <dt>Phone Number:</dt>
+          <dd>{{phone}}</dd>
+          <dt>Email:</dt>
+          <dd>{{email}}</dd>
+        </dl>
+        <!-- <ul class="tags"> -->
+          {{#if tags}}
+          {{> tag_list_template}}
+          {{/if}}
+        <!-- </ul> -->
+        <a class="button edit" href="#">Edit</a>
+        <a class="button delete" href="#">Delete</a>
+      </li>
+    </script>
+
+    <script id="tag_list_template" data-type="partial" type="text/x-handlebars">
+      <h4>Tags:</h4>
+      <ul class="tags">
+      {{#each tags}}
+      {{> tag_template}}
+      {{/each}}
+      </ul>
+    </script>
+
+    <script id="tag_template" data-type="partial" type="text/x-handlebars">
+      <li><a class="tag button" href="#">{{this}}</a></li>
+    </script>
+
+    <script id="form_template" type="text/x-handlebars">
+      <h2>Create Contact</h2>
+      <input type="hidden" name="id" value="{{id}}" />
+      <fieldset>
+        <dl>
+          <dt><label for="name">Full Name:</label></dt>
+          <dd><input type="text" name="name" id="name" value="{{name}}"  /></dd>
+        </dl>
+        <p class="invalid">Please enter a valid name.</p>
+        <dl>
+          <dt><label for="email">Email Address:</label></dt>
+          <dd><input type="email" name="email" id="email" value="{{email}}" ></dd>
+        </dl>
+        <p class="invalid">Please enter a valid email address.</p>
+        <dl>
+          <dt><label for="phone">Telephone Number:</label></dt>
+          <dd><input type="tel" name="phone" id="phone" value="{{phone}}" ></dd>
+        </dl>
+        <p class="invalid">Please enter a valid phone number.</p>
+        <dl>
+          <dt><label for="tags">Tags:</label></dt>
+          <dd><input type="text" name="tags" id="tags" value="{{tags}}" placeholder="tag 1, tag 2, ... or choose from above"></dd>
+        </dl>
+        <input class="button" type="submit" value="Submit" />
+        <a id="cancel" class="button" href="#">Cancel</a>
+      </fieldset>
+    </script>
+  </body>
+</html>
